@@ -29,6 +29,8 @@ const downloadImg = (imgUrl) => {
 const showLightbox = (name, img, description) => {
   lightbox.querySelector("img").src = img;
   lightbox.querySelector("span").innerText = name;
+  lightbox.querySelector(".description").innerText = description || "No description available"; // Assuming you have an element for displaying the description
+
   downloadImgBtn.setAttribute("data-img", img);
   lightbox.classList.add("show");
   document.body.style.overflow = "hidden";
@@ -41,25 +43,27 @@ const hideLightbox = () => {
 };
 
 // Function to generate HTML for images
+// Function to generate HTML for images
 const generateHTML = (images) => {
   imageWrapper.innerHTML += images
     .map(
       (img) =>
         `<li class="card">
-            <img onclick="showLightbox('${img.user.username}', '${img.urls.full}')" src="${img.urls.full}" alt="img">
+            <img onclick="showLightbox('${img.user.name}', '${img.urls.full}', '${img.description}')" src="${img.urls.full}" alt="img">
             <div class="details">
                 <div class="photographer">
-                <i class="fa-solid fa-camera fa-beat-fade"></i>
-                    <span>${img.user.name}</span>
+                  <i class="fa-solid fa-camera fa-beat-fade"></i>
+                  <span>${img.user.name}</span>
                 </div>
                 <button onclick="downloadImg('${img.urls.full}');">
-                <i class="fa-solid fa-download fa-beat-fade"></i>
+                  <i class="fa-solid fa-download fa-beat-fade"></i>
                 </button>
             </div>
         </li>`
     )
     .join("");
 };
+
 
 // Function to fetch images from the Unsplash API
 const getImages = (apiURL) => {
