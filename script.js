@@ -1,3 +1,4 @@
+// Selecting DOM elements
 const imageWrapper = document.querySelector(".images");
 const searchInput = document.querySelector(".search input");
 const loadMoreBtn = document.querySelector(".gallery .load-more");
@@ -5,11 +6,13 @@ const lightbox = document.querySelector(".lightbox");
 const downloadImgBtn = lightbox.querySelector(".fa-download");
 const closeImgBtn = lightbox.querySelector(".fa-xmark");
 
+// Unsplash API access key and configuration
 const accessKey = "ex5UyHB148WizUkBFmUIxaJyS_udljr3yPU0hMasVF0";
 const perPage = 15;
 let currentPage = 1;
 let searchTerm = null;
 
+// Function to download an image
 const downloadImg = (imgUrl) => {
   fetch(imgUrl)
     .then((res) => res.blob())
@@ -22,6 +25,7 @@ const downloadImg = (imgUrl) => {
     .catch(() => alert("Failed to download image!"));
 };
 
+// Function to show the lightbox with image details
 const showLightbox = (name, img, description) => {
   lightbox.querySelector("img").src = img;
   lightbox.querySelector("span").innerText = name;
@@ -30,11 +34,13 @@ const showLightbox = (name, img, description) => {
   document.body.style.overflow = "hidden";
 };
 
+// Function to hide the lightbox
 const hideLightbox = () => {
   lightbox.classList.remove("show");
   document.body.style.overflow = "auto";
 };
 
+// Function to generate HTML for images
 const generateHTML = (images) => {
   imageWrapper.innerHTML += images
     .map(
@@ -55,9 +61,10 @@ const generateHTML = (images) => {
     .join("");
 };
 
+// Function to fetch images from the Unsplash API
 const getImages = (apiURL) => {
   searchInput.blur();
-  loadMoreBtn.innerText = "Loading...";
+  loadMoreBtn.innerHTML = `Loading. . . `;
   loadMoreBtn.classList.add("disabled");
   fetch(apiURL, {
     headers: { Authorization: `Client-ID ${accessKey}` },
@@ -70,7 +77,7 @@ const getImages = (apiURL) => {
     })
     .then((data) => {
       generateHTML(data.results);
-      loadMoreBtn.innerText = "Load more...";
+      loadMoreBtn.innerHTML = `Load More &nbsp <i class="fa-solid fa-angle-right fa-beat-fade"></i>`;
       loadMoreBtn.classList.remove("disabled");
     })
     .catch((error) => {
@@ -81,6 +88,7 @@ const getImages = (apiURL) => {
     });
 };
 
+// Function to get initial images on page load
 const getInitialImages = () => {
   const placeholderQuery = "random";
   const apiUrl = `https://api.unsplash.com/search/photos?page=${currentPage}&per_page=${perPage}&query=${placeholderQuery}`;
@@ -89,12 +97,14 @@ const getInitialImages = () => {
 
 getInitialImages();
 
+// Function to load more images when the "Load More" button is clicked
 const loadMoreImages = () => {
   currentPage++;
   let apiUrl = `https://api.unsplash.com/search/photos?page=${currentPage}&per_page=${perPage}&query=${searchTerm}`;
   getImages(apiUrl);
 };
 
+// Function to load search images when Enter is pressed in the search input
 const loadSearchImages = (e) => {
   if (e.target.value === "") return (searchTerm = null);
   if (e.key === "Enter") {
@@ -105,6 +115,7 @@ const loadSearchImages = (e) => {
   }
 };
 
+// Event listeners
 loadMoreBtn.addEventListener("click", loadMoreImages);
 searchInput.addEventListener("keyup", loadSearchImages);
 closeImgBtn.addEventListener("click", hideLightbox);
