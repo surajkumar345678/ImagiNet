@@ -33,6 +33,7 @@
 
 .search img {
   object-fit: cover;
+  background-size: cover;
 }
 
 .search .content {
@@ -80,6 +81,12 @@
   padding-left: 55px;
   background: #fff;
   border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.search-box input:focus {
+  background-color: #fff;
+  color: #333; 
 }
 
 .search-box input::placeholder {
@@ -239,12 +246,12 @@ header .photographer span {
 }
 
 header .buttons i {
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   display: inline-block;
   color: #fff;
   font-size: 1.2rem;
-  line-height: 40px;
+  line-height: 30px;
   text-align: center;
   background: linear-gradient(to right, #457fca, #5691c8);
   border-radius: 4px;
