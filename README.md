@@ -1,4 +1,5 @@
-# ImagiNet - Unleash Your Imagination in Every Pixel
+[![Netlify Status](https://api.netlify.com/api/v1/badges/40d25e0c-4187-4661-99c6-4f4451babc40/deploy-status)](https://app.netlify.com/sites/imaginet/deploys)
+# [ImagiNet](https://imaginet.netlify.app/) - Unleash Your Imagination in Every Pixel
 
 ImagiNet is a visually stunning image gallery website that allows users to explore and discover high-quality images captured by talented photographers. With a modern and responsive design, ImagiNet provides a seamless user experience on various devices.
 
